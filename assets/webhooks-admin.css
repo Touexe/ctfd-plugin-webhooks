@@ -1,0 +1,298 @@
+.webhook-admin-page .card {
+    height: 100%;
+}
+
+.webhook-admin-page .card-header {
+    font-weight: 600;
+}
+
+.webhook-admin-page .card-body {
+    background: linear-gradient(180deg, rgba(248, 249, 250, 0.7), #fff 72px);
+}
+
+.webhook-scroll-hint {
+    margin-bottom: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.35rem;
+    background: rgba(31, 111, 178, 0.08);
+    color: #1f4f82;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.webhook-table-shell {
+    position: relative;
+}
+
+.webhook-table-shell::before,
+.webhook-table-shell::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0.65rem;
+    width: 18px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    z-index: 3;
+}
+
+.webhook-table-shell::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(248, 249, 250, 0.96), rgba(248, 249, 250, 0));
+}
+
+.webhook-table-shell::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(248, 249, 250, 0.96), rgba(248, 249, 250, 0));
+}
+
+.webhook-table-shell.is-scrollable-left::before,
+.webhook-table-shell.is-scrollable-right::after {
+    opacity: 1;
+}
+
+.webhook-table-scroller {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.25rem;
+    scrollbar-width: auto;
+    scrollbar-color: rgba(31, 111, 178, 0.55) rgba(31, 111, 178, 0.08);
+}
+
+.webhook-table-scroller::-webkit-scrollbar {
+    height: 12px;
+}
+
+.webhook-table-scroller::-webkit-scrollbar-track {
+    background: rgba(31, 111, 178, 0.08);
+    border-radius: 999px;
+}
+
+.webhook-table-scroller::-webkit-scrollbar-thumb {
+    background: rgba(31, 111, 178, 0.55);
+    border-radius: 999px;
+}
+
+.webhook-table {
+    min-width: 780px;
+}
+
+.webhook-actions-col {
+    min-width: 170px;
+}
+
+.webhook-table th:last-child,
+.webhook-table td:last-child {
+    position: sticky;
+    right: 0;
+    background: #fff;
+    z-index: 2;
+    box-shadow: -10px 0 12px -14px rgba(17, 24, 39, 0.45);
+}
+
+.webhook-table thead th:last-child {
+    z-index: 4;
+}
+
+.webhook-table tbody tr:nth-child(odd) td:last-child {
+    background: #f9f9f9;
+}
+
+.webhook-event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+.webhook-event-option {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    background: #fff;
+}
+
+.webhook-event-option label {
+    display: block;
+    margin: 0;
+    cursor: pointer;
+}
+
+.webhook-event-option small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #6c757d;
+}
+
+.webhook-template-hints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+}
+
+.webhook-template-hint {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.06);
+    color: #344054;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.webhook-template-callout {
+    margin-top: 0.75rem;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid rgba(31, 111, 178, 0.16);
+    border-radius: 0.5rem;
+    background: rgba(31, 111, 178, 0.05);
+    color: #244765;
+    line-height: 1.45;
+}
+
+.webhook-template-editors {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.webhook-template-card {
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 0.6rem;
+    background: #fff;
+    overflow: hidden;
+}
+
+.webhook-template-card-header {
+    padding: 0.7rem 0.9rem;
+    background: rgba(15, 23, 42, 0.03);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.webhook-template-card-header strong {
+    display: block;
+}
+
+.webhook-template-card-header small {
+    color: #6c757d;
+}
+
+.webhook-template-card-body {
+    padding: 0.9rem;
+}
+
+.webhook-template-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.webhook-template-card textarea {
+    min-height: 92px;
+    resize: vertical;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.webhook-template-json {
+    min-height: 170px;
+}
+
+.webhook-template-help {
+    line-height: 1.45;
+}
+
+.webhook-template-empty {
+    padding: 1rem;
+    border: 1px dashed rgba(15, 23, 42, 0.12);
+    border-radius: 0.6rem;
+    color: #6c757d;
+    background: rgba(248, 249, 250, 0.8);
+}
+
+.webhook-status {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.15rem 0.65rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.webhook-status-active {
+    background: rgba(40, 167, 69, 0.12);
+    color: #1f7a36;
+}
+
+.webhook-status-paused {
+    background: rgba(255, 193, 7, 0.18);
+    color: #8a6d00;
+}
+
+.webhook-status-private {
+    background: rgba(31, 111, 178, 0.12);
+    color: #1f6fb2;
+}
+
+.webhook-status-public {
+    background: rgba(108, 117, 125, 0.14);
+    color: #495057;
+}
+
+.webhook-last-error {
+    max-width: 28ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.webhook-inline-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.webhook-inline-actions .btn {
+    white-space: nowrap;
+}
+
+.webhook-muted-url {
+    display: block;
+    max-width: 30ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.webhook-privacy-block {
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(31, 111, 178, 0.16);
+    border-radius: 0.5rem;
+    background: rgba(31, 111, 178, 0.04);
+}
+
+#webhook-modal .modal-content {
+    border: 0;
+    border-radius: 0.85rem;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
+}
+
+#webhook-modal .modal-header,
+#webhook-modal .modal-footer {
+    border-color: rgba(15, 23, 42, 0.08);
+}
+
+#webhook-modal .modal-body {
+    padding-top: 1.25rem;
+}
+
+@media (max-width: 991.98px) {
+    .webhook-table {
+        min-width: 720px;
+    }
+
+    .webhook-actions-col {
+        min-width: 150px;
+    }
+}

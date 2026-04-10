@@ -1,0 +1,129 @@
+{% extends "admin/base.html" %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ request.script_root }}/plugins/ctfd-plugin-webhooks/assets/webhooks-admin.css">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container">
+        <h1>Webhooks</h1>
+        <p class="mb-0">
+            Register outbound webhooks for challenge activity and registration events.
+        </p>
+    </div>
+</div>
+
+<div class="container webhook-admin-page">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <div>Registered webhooks</div>
+                        <small class="text-muted d-block">Create, edit, pause, resume, and remove webhook destinations from one place.</small>
+                    </div>
+                    <button id="webhook-new-button" type="button" class="btn btn-sm btn-primary">
+                        Add webhook
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="webhook-scroll-hint" class="webhook-scroll-hint d-none">
+                        Scroll sideways to see the full table. Actions stay pinned on the right.
+                    </div>
+                    <div id="webhook-table-shell" class="webhook-table-shell">
+                        <div id="webhook-table-scroller" class="webhook-table-scroller">
+                            <table class="table table-striped table-bordered mb-0 webhook-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Provider</th>
+                                        <th>Status</th>
+                                        <th>Hooks</th>
+                                        <th>Last delivery</th>
+                                        <th class="webhook-actions-col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="webhook-table-body">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">Loading webhooks...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="webhook-modal" tabindex="-1" role="dialog" aria-labelledby="webhook-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="webhook-modal-title">Create webhook</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="webhook-form" novalidate>
+                <div class="modal-body">
+                    <input type="hidden" id="webhook-id" name="id">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="webhook-name">Name</label>
+                            <input id="webhook-name" name="name" type="text" class="form-control" maxlength="128" placeholder="Optional display name">
+                            <small class="form-text text-muted">Used only in the admin UI.</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="webhook-provider">Webhook type</label>
+                            <select id="webhook-provider" name="provider" class="form-control custom-select"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="webhook-target-url">Target URL</label>
+                        <input id="webhook-target-url" name="target_url" type="url" class="form-control" placeholder="https://example.com/webhook" required>
+                    </div>
+
+                    <div class="form-group webhook-privacy-block">
+                        <div class="form-check">
+                            <input id="webhook-is-private" name="is_private" type="checkbox" class="form-check-input">
+                            <label for="webhook-is-private" class="form-check-label">Private webhook</label>
+                        </div>
+                        <small class="form-text text-muted">Private webhooks include admin-panel links and extended account details. Public webhooks keep payloads cleaner.</small>
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <label>Hook types</label>
+                        <div id="webhook-events" class="webhook-event-list"></div>
+                        <small class="form-text text-muted">Select one or more events for this webhook.</small>
+                    </div>
+
+                    <div class="form-group mt-4 mb-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label class="mb-0">Delivery templates</label>
+                            <small class="text-muted">Templates use Jinja-style placeholders.</small>
+                        </div>
+                        <div class="webhook-template-callout">
+                            Message templates feed the default provider formatter. Optional JSON payload overrides replace the full outbound request body for that event, which lets you send custom Discord embeds or any other JSON shape. Use <code>|tojson</code> when inserting values into JSON.
+                        </div>
+                        <div id="webhook-template-hints" class="webhook-template-hints"></div>
+                        <div id="webhook-template-editors" class="webhook-template-editors mt-3"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="webhook-submit-button" type="submit" class="btn btn-primary">Create webhook</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script defer src="{{ request.script_root }}/plugins/ctfd-plugin-webhooks/assets/webhooks-admin.js"></script>
+{% endblock %}

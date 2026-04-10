@@ -1,0 +1,4 @@
+{
+  "name": "Webhooks",
+  "route": "/admin/plugins/ctfd-plugin-webhooks"
+}
