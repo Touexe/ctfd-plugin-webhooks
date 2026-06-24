@@ -346,7 +346,7 @@ def _serialize_submission(record):
         "status": getattr(record, "type", None),
         "date": _isoformat(getattr(record, "date", None)),
     }
-    if isinstance(record, Fails):
+    if isinstance(record, (Solves, Fails)):
         data["provided"] = getattr(record, "provided", None)
     return data
 
