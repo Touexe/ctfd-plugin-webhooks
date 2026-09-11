@@ -1,7 +1,7 @@
 import datetime
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
-from flask import has_app_context
 from sqlalchemy.orm import joinedload, sessionmaker
 
 from CTFd.models import Challenges, Fails, Partials, Ratelimiteds, Solves, Teams, Users
@@ -14,6 +14,9 @@ from .providers import build_provider_payload
 
 _APP = None
 _SESSION_FACTORY = None
+_EXECUTOR = ThreadPoolExecutor(
+    max_workers=4, thread_name_prefix="ctfd-plugin-webhooks"
+)
 
 
 def configure_dispatch(app, db):
@@ -28,11 +31,12 @@ def dispatch_pending_events(pending_events):
     if not pending_events or _APP is None or _SESSION_FACTORY is None:
         return
 
-    if has_app_context():
+    _EXECUTOR.submit(_dispatch_pending_events_in_background, pending_events)
+
+
+def _dispatch_pending_events_in_background(pending_events):
+    with _APP.app_context():
         _dispatch_all(pending_events)
-    else:
-        with _APP.app_context():
-            _dispatch_all(pending_events)
 
 
 def _dispatch_all(pending_events):
